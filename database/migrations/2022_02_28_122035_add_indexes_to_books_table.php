@@ -14,8 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::table('books', function (Blueprint $table) {
-            $table->unique(["slug", "isbn"]);
-            $table->index(["title", "price", "publication_date"]);
+            $table->unique("slug");
+            $table->unique("isbn");
+            $table->index("title");
+            $table->index("price");
+            $table->index("publication_date");
             $table->fullText("description");
 
         });
@@ -29,8 +32,11 @@ return new class extends Migration
     public function down()
     {
         Schema::table('books', function (Blueprint $table) {
-            $table->dropIndex("books_slug_isbn_unique");
-            $table->dropIndex("books_title_price_publication_date_index");
+            $table->dropIndex("books_slug_unique");
+            $table->dropIndex("books_isbn_unique");
+            $table->dropIndex("books_title_index");
+            $table->dropIndex("books_price_index");
+            $table->dropIndex("books_publication_date_index");
             $table->dropIndex("books_description_fulltext");
         });
     }
