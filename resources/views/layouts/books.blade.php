@@ -7,7 +7,8 @@
     <title>Books</title>
 </head>
 <body style="width: 100%; min-height: 100vh; display: flex; justify-content: center; align-items: center; flex-direction: column">
-    
+    @include("components.alerts")
+
     @yield("index_list")
 
 </body>

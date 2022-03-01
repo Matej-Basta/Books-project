@@ -17,3 +17,15 @@ Route::post("/books", "BookController@store");
 Route::get("/books/{book_id}", "BookController@edit");
 
 Route::put("/books/{book_id}", "BookController@update");
+
+//Publishers
+
+Route::get("/publishers", "PublisherController@index");
+
+Route::get("/publishers/create", "PublisherController@create");
+
+Route::post("/publishers", "PublisherController@store");
+
+Route::get("/publishers/{publisher_id}", "PublisherController@edit");
+
+Route::put("/publishers/{publisher_id}", "PublisherController@update");

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Book;
+use App\Models\Review;
 use Session;
 
 class BookController extends Controller
@@ -100,5 +101,34 @@ class BookController extends Controller
         session()->flash("success", "Successfully updated");
 
         return redirect(url("admin/books/create"));
+    }
+
+    public function show($book_id)
+    {
+
+        $book = Book::findOrFail($book_id);
+
+        return view("info_book", compact("book"));
+    }
+
+    public function storeReview($book_id)
+    {
+        $request = request();
+        
+        $this->validate($request, [
+            "review" => ["required", "max:255"],
+        ]);
+
+        $review = new Review;
+
+        $review->text = $request->input("review");
+        $review->book_id = $book_id;
+        $review->user_id = auth()->id();
+
+        $review->save();
+
+        session()->flash("success", "successfuly saved");
+
+        return redirect()->action("Admin\BookController@show", ["book_id" => $book_id]);
     }
 }
