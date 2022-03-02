@@ -20,3 +20,5 @@ Route::get('/', function () {
 Route::get("book/{book_id}", "BookController@show");
 
 Route::post("book/{book_id}", "BookController@storeReview");
+
+Route::get("/", "IndexController@index");
