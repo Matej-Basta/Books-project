@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Review;
 use Session;
+use App\Rules\ReviewUniqueForBookUser;
 
 class BookController extends Controller
 {
@@ -116,8 +117,14 @@ class BookController extends Controller
         $request = request();
         
         $this->validate($request, [
-            "review" => ["required", "max:255"],
+            'review' => [
+                'required', "max:255", new ReviewUniqueForBookUser
+            ],
         ]);
+
+        
+ 
+
 
         $review = new Review;
 
