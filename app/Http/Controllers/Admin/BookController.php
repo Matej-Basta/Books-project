@@ -106,10 +106,11 @@ class BookController extends Controller
 
     public function show($book_id)
     {
+        $user = auth()->user();
 
         $book = Book::findOrFail($book_id);
 
-        return view("info_book", compact("book"));
+        return view("info_book", compact("book", "user"));
     }
 
     public function storeReview($book_id)
@@ -118,7 +119,7 @@ class BookController extends Controller
         
         $this->validate($request, [
             'review' => [
-                'required', "max:255", new ReviewUniqueForBookUser
+                'required', "max:255", new ReviewUniqueForBookUser($book_id)
             ],
         ]);
 
@@ -137,5 +138,15 @@ class BookController extends Controller
         session()->flash("success", "successfuly saved");
 
         return redirect()->action("Admin\BookController@show", ["book_id" => $book_id]);
+    }
+
+    public function deleteReview($review_id)
+    { 
+
+        $review = Review::findOrFail($review_id);
+
+        $review->delete();
+
+        return redirect()->back();
     }
 }

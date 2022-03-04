@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 Route::get("/authors", "AuthorController@index");
 
 Route::get("/authors/create", "AuthorController@create");
@@ -17,6 +18,8 @@ Route::post("/books", "BookController@store");
 Route::get("/books/{book_id}", "BookController@edit");
 
 Route::put("/books/{book_id}", "BookController@update");
+
+Route::delete("/review/{review_id}", "BookController@deleteReview")->middleware('can:admin');
 
 //Publishers
 

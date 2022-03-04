@@ -16,6 +16,15 @@
 
     @foreach ($book->reviews as $review)
         <p>{{ $review->user->name }} : {{ $review->text }}</p>
+        
+        @if (\Gate::allows('admin'))
+        <form action="{{ action('Admin\BookController@deleteReview', ['review_id' => $review->id]) }}" method="post">
+            @csrf
+            @method("DELETE")
+            <button>Delete</button>
+        </form>
+
+        @endif
 
     @endforeach
     

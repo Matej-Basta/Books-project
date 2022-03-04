@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
+use App\Models\Review;
 
 class ReviewUniqueForBookUser implements Rule
 {
@@ -11,7 +12,7 @@ class ReviewUniqueForBookUser implements Rule
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($book_id)
     {
         $this->book_id = $book_id;
     }
@@ -25,7 +26,7 @@ class ReviewUniqueForBookUser implements Rule
      */
     public function passes($attribute, $value)
     {
-        $duplicated_review = Review::where("book_id", $book_id)->where("user_id", Auth::id())->first();
+        $duplicated_review = Review::where("book_id", $this->book_id)->where("user_id", auth()->id())->first();
 
         return !$duplicated_review;
     }
