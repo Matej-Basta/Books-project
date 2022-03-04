@@ -10,6 +10,13 @@
         <li>Price: {{ $book->price }}</li>
         <li>Publication: {{ $book->publication_date }}</li>
         <li>Description: {{ $book->description }}</li>
+        <li>Available in:
+            <ul>
+                @foreach($book->bookshops()->orderBy("name", "asc")->get() as $bookshop)
+                    <li>{{$bookshop->name}}</li>
+                @endforeach
+            </ul>
+        </li>
     </ul>
 
     <br>

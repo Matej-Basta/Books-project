@@ -21,3 +21,5 @@ class Book extends Model
         return $this->belongsToMany(Bookshop::class);
     }
 }
+
+
